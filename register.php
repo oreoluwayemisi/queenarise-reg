@@ -1,5 +1,5 @@
 <?php
-ini_set('display_errors', 1);
+// ini_set('display_errors', 1);
 
 // Pull in the Database Configuration file
 require 'dbconfig.php';
@@ -54,8 +54,22 @@ try{
     // if($conn){
     //     echo "Connected to the <strong>$db</strong> database successfully!";
     // }
-    
-    // enter the data into the database
+
+    // check to see if the user is already in database
+    $usercheck = "SELECT * FROM participants WHERE email=?";
+    //Prepare the Query
+    $usercheckquery = $conn->prepare($usercheck);
+    //Execute the Query
+    $usercheckquery->execute(array("$email"));
+    //Fetch the result
+    $usercheckquery->rowCount();
+    if ($usercheckquery->rowCount() > 0) {
+        //redirect to the Thank You Page
+        echo "user exists";
+    }
+
+    if(isset($_POST['paid']) && $_POST['paid'] == 1) {
+        // enter the data into the database
     $enteruser = "INSERT into participants (firstName, lastName, email, phone, city, ticket_id) VALUES (:firstName, :lastName, :email, :phone, :city, :ticket_id)";
 
     //Prepare Query
@@ -76,7 +90,7 @@ try{
 
         
     // Check to see if the query executed successfully
-    if($enteruserquery->rowCount() > 0) {
+    if ($enteruserquery->rowCount() > 0) {
         //Send SMS
         // prepare the parameters
         $url = 'https://www.bulksmsnigeria.com/api/v1/sms/create';
@@ -188,9 +202,11 @@ try{
         
         $mail->send();
 
-
-        
+        echo 'registered successfully';
     }
+
+    }
+
 
 } catch (PDOException $e){
     //report the error message

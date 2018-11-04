@@ -79,41 +79,66 @@ $(document).ready(function () {
             amount = 2000000;
         }
 
-        function payWithPaystack() {
-            var handler = PaystackPop.setup({
-                key: 'pk_test_7858588bfa12583e0fc0001ec0569e61b51d0476',
-                email: email,
-                amount: amount,
-                firstname: firstName,
-                lastname: lastName,
-                metadata: {
-                    custom_fields: [
-                        {
-                            display_name: "Mobile Number",
-                            variable_name: "mobile_number",
-                            value: phone
-                        }
-                    ]
-                },
-                callback: function(response){
+        //when payment has been successfully made, this is the dataString to send by POST
+        var dataString2 = dataString + '&paid=1';
 
-                    // console.log(response);
-                    if(response.status == 'success') {
-                        $.ajax({
-                            type: 'POST',
-                            url: 'register.php',
-                            data: dataString,
-                            success: function(datapost) {
+        // check to see if user has registered
+        $.ajax({
+            type: 'POST',
+            url: 'register.php',
+            data: dataString,
+            success: function(result) {
+                if(result == "user exists") {
+                    swal("Already Registered", "You have already registered for the Conference", "warning");
+                } else {
+                    // Bring up the Payment Page
+                    function payWithPaystack() {
+                        var handler = PaystackPop.setup({
+                            key: 'pk_test_7858588bfa12583e0fc0001ec0569e61b51d0476',
+                            email: email,
+                            amount: amount,
+                            firstname: firstName,
+                            lastname: lastName,
+                            metadata: {
+                                custom_fields: [
+                                    {
+                                        display_name: "Mobile Number",
+                                        variable_name: "mobile_number",
+                                        value: phone
+                                    }
+                                ]
+                            },
+                            callback: function (response) {
 
-                            }
+                                // console.log(response);
+                                // If payment was successful, then post the User Data to the Database and give value
+                                if (response.status == 'success') {
+                                    $.ajax({
+                                        type: 'POST',
+                                        url: 'register.php',
+                                        data: dataString2,
+                                        success: function (datapost) {
+
+                                        }
+                                    });
+
+                                    // Alert the User of a successful registration
+                                    swal("Success", "Your registration was successful and your transaction ref is " + response.reference, "success");
+                                    setTimeout(function () {
+                                        window.location = 'https://cgeee.org/queenarise/thank-you'
+                                    }, 3000);
+                                }
+                                
+                            },
+                            
                         });
+                        handler.openIframe();
                     }
-                    // swal("Success", "Your transaction ref is "+response.reference, "success");
-                },
-            });
-            handler.openIframe();
-        }
 
-        payWithPaystack();
+                    payWithPaystack();
+                }
+            }
+        });
+        
     });
 });
