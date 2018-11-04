@@ -1,4 +1,6 @@
 <?php
+ini_set('display_errors', 1);
+
 // Pull in the Database Configuration file
 require 'dbconfig.php';
 
@@ -9,13 +11,14 @@ $email = $_POST['email'];
 $phone = $_POST['phone'];
 $city = $_POST['city'];
 $firstName = $_POST['firstName'];
-$ticketType;
+$ticketType = $_POST['ticketType'];
+$ticketId;
 if($_POST['ticketType'] == 'Duchess') {
-    $ticketType = 1;
+    $ticketId = 1;
 } elseif ($_POST['ticketType'] == 'Empress') {
-    $ticketType = 2;
+    $ticketId = 2;
 } elseif($_POST['ticketType'] == 'Queen') {
-    $ticketType = 3;
+    $ticketId = 3;
 }
 
 
@@ -45,11 +48,34 @@ try{
             "email"             =>  $email,
             "phone"             =>  $phone,
             "city"              =>  $city,
-            "ticket_id"         =>  $ticketType
+            "ticket_id"         =>  $ticketId
         )
     );
 
-    
+
+        
+    // Check to see if the query executed successfully
+    if($enteruserquery->rowCount() > 0) {
+        //Send SMS
+        // prepare the parameters
+        $url = 'https://www.bulksmsnigeria.com/api/v1/sms/create';
+        $from = 'Queen Arise';
+        $body = "Dear ".$ticketType. " " .$firstName. ", Thank you for registering for Queen Arise Conference! We are so excited already. Guess what! There is so much in store for you! Kindly look out for updates on all our social media platforms and check your mail for your ticket. For further enquiries call 08022473972 or send a mail to info@cgeee.org.";
+        $token = '3bzWyASahw61zV0s3TT2oYQnbiJ1EcM9mm5g6QArpKm8Ubv7w8aMf7iHbkh8';
+        $myvars = 'api_token=' . $token . '&from=' . $from . '&to=' . $phone . '&body=' . $body;
+        //start CURL
+        // create curl resource
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $myvars);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+        curl_exec($ch);
+
+        
+    }
 
 } catch (PDOException $e){
     //report the error message
