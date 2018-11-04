@@ -9,6 +9,11 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <!--    Loading Sweet Alert -->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <style>
+        .strong {
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
 <div class="container" style="max-width:90%; margin: 0 auto;">
@@ -31,7 +36,7 @@
             </div>
             <div class="form-row">
                 <div class="form-group col-md">
-                    <input type="email" class="form-control" id="email" name="email" placeholder="Your current working Email" required>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Your current Email" required>
                 </div>
                 <div class="form-group col-md">
                     <input type="tel" class="form-control" id="phone" name="phone" placeholder="Your Phone" required>
@@ -62,8 +67,44 @@
                             <label for="queen" class="form-check-label">Queen</label>
                         </div>
                     </div>
+            </div>
+            <div class="form-row text-center">
                 <div class="form-group col" id="tt">
-
+                    <ul id="duchessList" style="list-style-type:none; display: none;">
+                        <li>Tea Break & Lunch</li>
+                        <li>Snack Bar</li>
+                        <li>Registration Pack</li>
+                        <li>Goodie Bag</li>
+                        <li>Fitness Corner</li>
+                        <li>Hair & Makeup</li>
+                        <li>Conference Sessions</li>
+                    </ul>
+                    <ul id="empressList" style="list-style-type:none; display: none;">
+                        <li>Tea Break & Lunch</li>
+                        <li>Snack Bar</li>
+                        <li>Registration Pack</li>
+                        <li>Goodie Bag</li>
+                        <li>Fitness Corner</li>
+                        <li>Hair & Makeup</li>
+                        <li>Conference Sessions</li>
+                        <li class="strong">One-on-One Coaching</li>
+                        <li class="strong">Manicure and Yoga</li>
+                    </ul>
+                    <ul id="queenList" style="list-style-type:none; display: none;">
+                        <li>Tea Break & Lunch</li>
+                        <li>Snack Bar</li>
+                        <li>Registration Pack</li>
+                        <li>Goodie Bag</li>
+                        <li>Fitness Corner</li>
+                        <li>Hair & Makeup</li>
+                        <li>Conference Sessions</li>
+                        <li>One-on-One Coaching</li>
+                        <li>Manicure and Yoga</li>
+                        <li class="strong">Preferential Treatment</li>
+                        <li class="strong">Front Row Seat</li>
+                        <li class="strong">Welcome Package</li>
+                        <li class="strong">Exclusive Massage Lounge</li>
+                    </ul>
                 </div>
             </div>
             <div class="form-row">
@@ -85,5 +126,6 @@
     crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
     crossorigin="anonymous"></script>
+<script src="scripts/main.js"></script>
 </body>
 </html>
