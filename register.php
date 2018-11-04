@@ -3,6 +3,27 @@ ini_set('display_errors', 1);
 
 // Pull in the Database Configuration file
 require 'dbconfig.php';
+require 'sendpulse-rest-api-php/ApiInterface.php';
+require 'sendpulse-rest-api-php/ApiClient.php';
+require 'sendpulse-rest-api-php/Storage/TokenStorageInterface.php';
+require 'sendpulse-rest-api-php/Storage/FileStorage.php';
+require 'sendpulse-rest-api-php/Storage/SessionStorage.php';
+require 'sendpulse-rest-api-php/Storage/MemcachedStorage.php';
+require 'sendpulse-rest-api-php/Storage/MemcacheStorage.php';
+require 'PHPMailer/src/PHPMailer.php';
+require 'PHPMailer/src/SMTP.php';
+
+use Sendpulse\RestApi\ApiClient;
+use Sendpulse\RestApi\Storage\FileStorage;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+
+// API credentials from https://login.sendpulse.com/settngs/#api
+define('API_USER_ID', 'e4d11114a5f946adfcc9874a92fd4a42');
+define('API_SECRET', '09005b4f24d9f7a4c1c71fabbf55746a');
+define('PATH_TO_ATTACH_FILE', __FILE__);
+
+$SPApiClient = new ApiClient(API_USER_ID, API_SECRET, new FileStorage());
 
 // Capture Post Data
 $firstName = $_POST['firstName'];
@@ -73,6 +94,28 @@ try{
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 
         curl_exec($ch);
+
+        /**
+         * Add User to the SendPule mailing List
+         */
+        $bookID = 2063694;
+        $emails = array(
+                array(
+                    'email'         =>  $email,
+                    'variables'     =>  array(
+                    'phone'         =>  $phone,
+                    'name'          =>  $firstName,
+                    'lastName'      =>  $lastName,
+                    'city'          =>  $city,
+                    'ticketType'    =>  $ticketType,
+                )
+            )
+        );
+        // Without Confirmation
+        var_dump($SPApiClient->addEmails($bookID, $emails));
+
+
+        // Send Ticket
 
         
     }
