@@ -69,5 +69,51 @@ $(document).ready(function () {
         var phone = $.trim(document.getElementById('phone').value);
         var city = $.trim(document.getElementById('city').value);
         var ticketType = document.querySelector('input[name="ticketType"]:checked').value;
+        var dataString = 'firstName=' + firstname + '&lastName=' + lastname + '&email=' + email + '&phone=' + phone + '&city=' + city + '&ticketType=' + ticketType;
+        var amount;
+        if(ticketType == 'Duchess') {
+            amount = 500000;
+        } else if(ticketType == 'Empress') {
+            amount = 1000000;
+        } else if(ticketType == 'Queen') {
+            amount = 2000000;
+        }
+
+        function payWithPaystack() {
+            var handler = PaystackPop.setup({
+                key: 'pk_test_7858588bfa12583e0fc0001ec0569e61b51d0476',
+                email: email,
+                amount: amount,
+                firstname: firstName,
+                lastname: lastName,
+                metadata: {
+                    custom_fields: [
+                        {
+                            display_name: "Mobile Number",
+                            variable_name: "mobile_number",
+                            value: phone
+                        }
+                    ]
+                },
+                callback: function(response){
+
+                    // console.log(response);
+                    if(response.status == 'success') {
+                        $.ajax({
+                            type: 'POST',
+                            url: 'register.php',
+                            data: dataString,
+                            success: function(datapost) {
+                                
+                            }
+                        });
+                    }
+                    // swal("Success", "Your transaction ref is "+response.reference, "success");
+                },
+            });
+            handler.openIframe();
+        }
+
+        payWithPaystack();
     });
 });
