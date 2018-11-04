@@ -115,7 +115,79 @@ try{
         var_dump($SPApiClient->addEmails($bookID, $emails));
 
 
-        // Send Ticket
+        // Send Ticket via Email - PHPMailer
+        $mail = new PHPMailer(true); // enable exceptions
+        // server settings
+        $mail->SMTPDebug = 2;
+        $mail->isSMTP();
+        $mail->Host = 'mail.cgeee.org';
+        $mail->SMTPAuth = true;
+        $mail->Username = 'info@cgeee.org';
+        $mail->Password = '1nf0m@1l';
+        $mail->SMTPSecure = 'ssl';
+        $mail->Port = 465;
+        $emailBody = '<table style="background-color: #d5d5d5;" border="0" width="100%" cellspacing="0">
+                        <tbody>
+                        <tr>
+                        <td>
+                        <table style="font-family: Helvetica,Arial,sans-serif; background-color: #fff; margin-top: 40px; margin-bottom: 40px;  border-radius: 20px;" border="0" width="600" cellspacing="0" cellpadding="0" align="center">
+                        <tbody>
+                        <tr>
+                        <td style="padding-top: 40px; padding-right: 40px; padding-bottom: 15px;" colspan="2">
+                        <p style="text-align: right;"><a href="http://cgeee.org/queenarise/"><img src="https://cgeee.org/email/qalogo.png" alt="Queen Arise" width="30%" border="0" /></a></p>
+                        </td>
+                        </tr>
+                        <tr>
+                        <td style="padding-right: 40px; text-align: right;" colspan="2"><span style="font-size: 12pt;"></span></td>
+                        </tr>
+                        <tr>
+                        <td style="color: #000; font-size: 12pt; font-weight: normal; line-height: 15pt; padding: 40px 40px 80px 40px;" colspan="2" valign="top">Hi ' . $ticketType . ' ' . $firstName . ',
+                            <p>Thank you for registering for Queen Arise Conference.</p>
+                            <p>We are ready for you on November 23rd to 24th 2018. Are you ready? There&#39;s so much we have for you, we can&#39;t wait.</p>
+                            <p>This mail serves as a ticket to the event. Please come with it to the venue and present it at the verification stand. Note that <strong>this ticket is not transferrable.</strong></p>
+                            <p>Kindly visit {site name} and all our social media platforms for more information and updates. Don&#39;t hesitate to call <strong>08022473972</strong> for further enquiries.</p>
+                            <p>We look forward to receiving you and making great memories together</p>
+                            <p>Have a beautiful day!</p>
+                        </td>
+                        </tr>
+                        <tr>
+                        <td style="border-top: 5px solid #ec008b; height: 10px; font-size: 7pt;" colspan="2" valign="top"><span>&nbsp;</span></td>
+                        </tr>
+                        <tr style="text-align: center;">
+                        <td id="s1" style="padding-left: 20px;" valign="top"><span style="text-align: center; color: #333; font-size: 12pt;"><strong>Powered by:</strong></span></td>
+                        </tr>
+                        <tr style="text-align: center; padding-left: 20px; padding-right: 20px; padding-bottom: 0;">
+                        <td colspan="2" valign="top"><span style="color: #333; font-size: 8pt; font-weight: normal; line-height: 17pt;"><span style="font-size: 12pt;color: #4298f4;">Centre for Gender Equality Education & Empowerment</span><br /> TFN House, 7A ECOWAS Estate, Diplomatic Zone, Katampe Extension, Abuja, Nigeria<br />tel: +2349023725244 &nbsp;<br /><strong>email:&nbsp;</strong>info@cgeee.org &nbsp;|&nbsp; <strong>www.cgeee.org</strong></span>
+                        <p><a href="https://twitter.com/CGEEE2"><img src="https://s3.amazonaws.com/rkjha/signature-maker/icons/twitter_circle_color-20.png" width="20px" height="20px" /></a><a href="https://www.facebook.com/CGEEEAFRICA"><img src="https://s3.amazonaws.com/rkjha/signature-maker/icons/facebook_circle_color-20.png" width="20px" height="20px" /></a></p>
+                        </td>
+                        </tr>
+                        <tr>
+                        <td id="s3" style="padding-left: 20px; padding-right: 20px;" colspan="2" valign="bottom">
+                        <p style="font-family: Helvetica, sans-serif; text-align: center; font-size: 12px; line-height: 21px; color: #333;"><span style="margin-left: 4px;"><span style="opacity: 0.4; color: #333; font-size: 9px;">Disclaimer: This message and any files transmitted with it are confidential and privileged. If you have received it in error, please notify the sender by return e-mail and delete this message from your system. If you are not the intended recipient you are hereby notified that any dissemination, copy or disclosure of this e-mail is strictly prohibited.</span></span></p>
+                        </td>
+                        </tr>
+                        <tr>
+                        <td style="border-bottom: 5px solid #7e3f98; height: 5px; font-size: 7pt;border-radius: 20px;" colspan="2" valign="top">&nbsp;</td>
+                        </tr>
+                        </tbody>
+                        </table>
+                        </td>
+                        </tr>
+                        </tbody>
+                        </table>';
+
+
+        //Recipients
+        $mail->setFrom('info@cgeee.org', 'Queen Arise');
+        $mail->addAddress($email, $firstName.' '.$lastName);
+
+        // Content
+        $mail->isHTML(true);
+        $mail->Subject = 'Your Ticket for the Queen Arise Conference is Here';
+        $mail->Body = $emailBody;
+        
+        $mail->send();
+
 
         
     }
