@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 03, 2018 at 11:51 PM
+-- Generation Time: Nov 04, 2018 at 01:02 PM
 -- Server version: 5.7.24-0ubuntu0.18.04.1
 -- PHP Version: 7.2.11-3+ubuntu18.04.1+deb.sury.org+1
 
@@ -37,6 +37,13 @@ CREATE TABLE `participants` (
   `regDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `participants`
+--
+
+INSERT INTO `participants` (`id`, `firstName`, `lastName`, `email`, `phone`, `city`, `ticket_id`, `regDate`) VALUES
+(1, 'Imoh', 'Benson', 'benson@stbensonimoh.com', '08087719510', 'Surulere', 3, '2018-11-04 12:56:17');
+
 -- --------------------------------------------------------
 
 --
@@ -47,6 +54,15 @@ CREATE TABLE `ticket` (
   `id` int(11) UNSIGNED NOT NULL,
   `name` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `ticket`
+--
+
+INSERT INTO `ticket` (`id`, `name`) VALUES
+(1, 'Duchess'),
+(2, 'Empress'),
+(3, 'Queen');
 
 --
 -- Indexes for dumped tables
@@ -74,12 +90,12 @@ ALTER TABLE `ticket`
 -- AUTO_INCREMENT for table `participants`
 --
 ALTER TABLE `participants`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `ticket`
 --
 ALTER TABLE `ticket`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- Constraints for dumped tables
 --
