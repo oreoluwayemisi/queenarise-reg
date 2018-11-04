@@ -69,7 +69,7 @@ $(document).ready(function () {
         var phone = $.trim(document.getElementById('phone').value);
         var city = $.trim(document.getElementById('city').value);
         var ticketType = document.querySelector('input[name="ticketType"]:checked').value;
-        var dataString = 'firstName=' + firstname + '&lastName=' + lastname + '&email=' + email + '&phone=' + phone + '&city=' + city + '&ticketType=' + ticketType;
+        var dataString = 'firstName=' + firstName + '&lastName=' + lastName + '&email=' + email + '&phone=' + phone + '&city=' + city + '&ticketType=' + ticketType;
         var amount;
         if(ticketType == 'Duchess') {
             amount = 500000;
@@ -104,7 +104,7 @@ $(document).ready(function () {
                             url: 'register.php',
                             data: dataString,
                             success: function(datapost) {
-                                
+
                             }
                         });
                     }
