@@ -159,7 +159,7 @@ try{
                             <p>Thank you for registering for Queen Arise Conference.</p>
                             <p>We are ready for you on November 23rd to 24th 2018. Are you ready? There&#39;s so much we have for you, we can&#39;t wait.</p>
                             <p>This mail serves as a ticket to the event. Please come with it to the venue and present it at the verification stand. Note that <strong>this ticket is not transferrable.</strong></p>
-                            <p>Kindly visit {site name} and all our social media platforms for more information and updates. Don&#39;t hesitate to call <strong>08022473972</strong> for further enquiries.</p>
+                            <p>Kindly visit <a href="//cgeee.org/queenarise">Queen Arise</a> and all our social media platforms for more information and updates. Don&#39;t hesitate to call <strong>08022473972</strong> for further enquiries.</p>
                             <p>We look forward to receiving you and making great memories together</p>
                             <p>Have a beautiful day!</p>
                         </td>

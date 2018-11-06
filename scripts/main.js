@@ -74,9 +74,9 @@ $(document).ready(function () {
         if(ticketType == 'Duchess') {
             amount = 500000;
         } else if(ticketType == 'Empress') {
-            amount = 1000000;
+            amount = 1500000;
         } else if(ticketType == 'Queen') {
-            amount = 2000000;
+            amount = 2500000;
         }
 
         //when payment has been successfully made, this is the dataString to send by POST
@@ -94,7 +94,7 @@ $(document).ready(function () {
                     // Bring up the Payment Page
                     function payWithPaystack() {
                         var handler = PaystackPop.setup({
-                            key: 'pk_test_7858588bfa12583e0fc0001ec0569e61b51d0476',
+                            key: 'pk_live_e9ec9b0c43f8564af3fe8f2560b5d5c41e4b8548',
                             email: email,
                             amount: amount,
                             firstname: firstName,
